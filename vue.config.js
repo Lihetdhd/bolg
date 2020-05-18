@@ -11,8 +11,8 @@ module.exports = {
   /* webpack-dev-server 相关配置 */
   devServer: {
     open: true, //自动打开浏览器
-    host: "localhost", //开发环境地址
-    port: "8080", //开发环境端口
+    // host: "localhost", //开发环境地址
+    // port: "8080", //开发环境端口
     https: false, //是否配置https请求
     hotOnly: true, //热跟新
     //代理（解决跨域）
