@@ -6,21 +6,27 @@
     </div>
     <div class="bg">
       <transition name="forms">
-        <div class="login-box" v-show="formShow">
+        <div class="login-box"
+             v-show="formShow">
           <div class="title">
             <label>登录</label>
           </div>
           <div class="form">
             <el-form lable-width="80px">
               <el-form-item label="账号">
-                <input type="text" v-model="userName" placeholder="请输入账号">
+                <input type="text"
+                       v-model="phone"
+                       placeholder="请输入账号">
               </el-form-item>
               <el-form-item label="密码">
-                <input type="password" v-model="password" placeholder="请输入密码">
+                <input type="password"
+                       v-model="password"
+                       placeholder="请输入密码">
               </el-form-item>
             </el-form>
-            <el-button class="go">
-              <label>来吧！进入新的世界✧*｡٩(ˊᗜˋ*)و✧*｡</label>
+            <el-button class="go"
+                       @click="login">
+              <label>来吧！进入新的世界(。-`ω´-)</label>
             </el-button>
           </div>
         </div>
@@ -30,21 +36,34 @@
 </template>
 <script>
 import star from "@components/star";
+import login from '@api/login'
 export default {
   components: {
     star
   },
-  data() {
+  data () {
     return {
-      userName: "",
+      phone: "",
       password: "",
       formShow: false
     };
   },
-  mounted() {
+  mounted () {
     this.formShow = true;
   },
-  methods: {}
+  methods: {
+    login () {
+      let params = { phone: this.phone, password: this.password }
+      login.getToken(params).then((res) => {
+        if (res.data.code == 200) {
+          this.$router.push('/');
+        }
+      }).catch((err) => {
+        console.error(err);
+      })
+    }
+
+  }
 };
 </script>
 <style lang="less" scoped>
@@ -102,6 +121,10 @@ export default {
 .form {
   padding: 0 55px;
 }
+.form .el-form-item__label {
+  color: #ccc;
+  color: #ccc;
+}
 input {
   width: 100%;
   height: 35px;
@@ -130,11 +153,10 @@ input {
   position: fixed;
   top: 0;
   left: 0;
-  right:0;
+  right: 0;
   overflow: hidden;
 }
 .go:hover {
   box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
 }
 </style>
-<style>
