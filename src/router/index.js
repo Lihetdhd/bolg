@@ -6,14 +6,14 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    component: (resolve) => require(["../views/Home.vue"], resolve),
+    component: (resolve) => require(["@views/home/index.vue"], resolve),
     meta: {
       title: "首页",
     },
   },
   {
     path: "/login",
-    component: (resolve) => require(["../views/login.vue"], resolve),
+    component: (resolve) => require(["@views/login.vue"], resolve),
     meta: {
       title: "新世界的大门",
     },
