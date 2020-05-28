@@ -1,4 +1,5 @@
 const path = require("path");
+const webpack = require("webpack");
 const resolve = (dir) => path.join(__dirname, dir);
 module.exports = {
   publicPath:
@@ -40,5 +41,12 @@ module.exports = {
         "@views": resolve("src/views"),
       },
     },
+    plugins: [
+      new webpack.ProvidePlugin({
+        $: "jquery",
+        jQuery: "jquery",
+        "windows.jQuery": "jquery",
+      }),
+    ],
   },
 };
