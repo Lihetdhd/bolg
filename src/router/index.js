@@ -6,7 +6,7 @@ Vue.use(VueRouter);
 const routes = [
   {
     path: "/",
-    component: (resolve) => require(["@views/home/index.vue"], resolve),
+    component: (resolve) => require(["@views/layout/index.vue"], resolve),
     meta: {
       title: "首页",
     },

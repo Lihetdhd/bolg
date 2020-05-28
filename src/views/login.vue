@@ -1,6 +1,5 @@
 <template>
-  <div>
-    <div class="login"></div>
+  <div class="login">
     <div class="keep-auto">
       <star></star>
     </div>
@@ -121,10 +120,7 @@ export default {
 .form {
   padding: 0 55px;
 }
-.form .el-form-item__label {
-  color: #ccc;
-  color: #ccc;
-}
+
 input {
   width: 100%;
   height: 35px;
@@ -134,6 +130,10 @@ input {
   border-bottom: 1px solid #aaa;
   color: @color;
   background: rgba(0, 0, 0, 0);
+  outline: none;
+}
+.form_label label {
+  color: #ccc;
 }
 
 .forms-enter-active,
@@ -158,5 +158,10 @@ input {
 }
 .go:hover {
   box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
+}
+</style>
+<style>
+.login .form .el-form-item__label {
+  color: #fff;
 }
 </style>
