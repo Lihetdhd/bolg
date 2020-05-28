@@ -101,12 +101,27 @@ nav,
 section {
   display: block;
 }
-
+html {
+  height: 100vh;
+}
 body {
+  height: 100vh;
   line-height: 1;
   font-family: PingFang SC, STHeitiSC-Light, Helvetica-Light, arial, sans-se;
 }
-
+img {
+  max-width: 100%;
+}
+div::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+div::-webkit-scrollbar-track {
+  border-radius: 10px;
+}
+div::-webkit-scrollbar-thumb {
+  background: #ccc;
+}
 ol,
 ul {
   list-style: none;
