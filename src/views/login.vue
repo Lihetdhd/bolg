@@ -10,24 +10,31 @@
           <div class="title">
             <label>登录</label>
           </div>
-          <div class="form">
-            <el-form lable-width="80px">
-              <el-form-item label="账号">
-                <input type="text"
-                       v-model="phone"
-                       placeholder="请输入账号">
-              </el-form-item>
-              <el-form-item label="密码">
-                <input type="password"
-                       v-model="password"
-                       placeholder="请输入密码">
-              </el-form-item>
-            </el-form>
-            <el-button class="go"
-                       @click="login">
-              <label>来吧！进入新的世界(。-`ω´-)</label>
-            </el-button>
-          </div>
+          <form>
+            <div class="form-group">
+              <label for="exampleInputEmail1">手机号</label>
+              <i class="iconfont icon-yonghu"></i>
+              <input class="form-control"
+                     type="text"
+                     id="phone"
+                     v-model="phone"
+                     onkeyup="value=value.replace(/[^\d]/g,'')"
+                     maxlength="11" />
+            </div>
+            <div class="form-group">
+              <label for="exampleInputEmail1">密码</label>
+              <i class="iconfont icon-mima"></i>
+              <input type="password"
+                     class="form-control"
+                     id="password"
+                     v-model="password" />
+            </div>
+            <div class="form-group">
+              <button type="button"
+                      class="btn btn-primary"
+                      @click="login">登录</button>
+            </div>
+          </form>
         </div>
       </transition>
     </div>
@@ -35,16 +42,16 @@
 </template>
 <script>
 import star from "@components/star";
-import login from '@api/login'
+import login from "@api/login";
 export default {
   components: {
-    star
+    star,
   },
   data () {
     return {
       phone: "",
       password: "",
-      formShow: false
+      formShow: false,
     };
   },
   mounted () {
@@ -52,17 +59,19 @@ export default {
   },
   methods: {
     login () {
-      let params = { phone: this.phone, password: this.password }
-      login.getToken(params).then((res) => {
-        if (res.data.code == 200) {
-          this.$router.push('/');
-        }
-      }).catch((err) => {
-        console.error(err);
-      })
-    }
-
-  }
+      let params = { phone: this.phone, password: this.password };
+      login
+        .getToken(params)
+        .then((res) => {
+          if (res.data.code == 200) {
+            this.$router.push("/");
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+  },
 };
 </script>
 <style lang="less" scoped>
@@ -96,8 +105,9 @@ export default {
   bottom: 0;
   width: 90%;
   max-height: 345px;
-  max-width: 440px;
+  max-width: 345px;
   box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
+  padding: 0 40px;
 }
 .go {
   height: 45px;
@@ -111,31 +121,29 @@ export default {
 }
 .title {
   padding: 10px 0;
-  width: 100%;
-  height: 40px;
   text-align: center;
-  line-height: 40px;
   font-size: 20px;
 }
-.form {
-  padding: 0 55px;
+form {
+  margin-top: 15px;
 }
-
-input {
-  width: 100%;
-  height: 35px;
+.form-group input {
   border-top: none;
   border-left: none;
   border-right: none;
-  border-bottom: 1px solid #aaa;
-  color: @color;
+  border-bottom: 1px solid #ccc;
   background: rgba(0, 0, 0, 0);
   outline: none;
-}
-.form_label label {
-  color: #ccc;
-}
+  color: @color;
+  box-shadow: none;
+  border-radius: 0;
 
+  text-align: center;
+}
+input:-internal-autofill-selected {
+  -webkit-text-fill-color: #fff;
+  transition: background-color 5000s ease-out 0.5s;
+}
 .forms-enter-active,
 .forms-leave-active {
   transition: all 1s ease;
@@ -159,9 +167,18 @@ input {
 .go:hover {
   box-shadow: 0px 0px 15px rgba(255, 255, 255, 0.3);
 }
-</style>
-<style>
-.login .form .el-form-item__label {
-  color: #fff;
+.form-group {
+  position: relative;
+}
+.form-group i {
+  position: absolute;
+  margin: auto;
+  bottom: 0;
+  left: 0;
+  font-size: 18px;
+}
+.btn-primary {
+  margin-top: 12px;
+  width: 100%;
 }
 </style>
