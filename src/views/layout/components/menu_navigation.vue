@@ -1,37 +1,56 @@
 <template>
   <div class="menu">
-    <div class="menu_box">
-      <img src="~@images/猫.png" />
-      <el-menu
-        :default-active="activeIndex"
-        class="el-menu-demo"
-        mode="horizontal"
-        @select="handleSelect"
-      >
-        <el-menu-item index="1" v-for="menu in menuList" :key="menu">
-          <span slot="title">{{ menu.title }}</span>
-          <i class="iconfont" v-if="menu.icon" :class="menu.icon"></i>
-        </el-menu-item>
-      </el-menu>
-    </div>
-    <div class="menu_right">
-      <el-dropdown trigger="click">
-        <div class="head_portrait el-dropdown-link">
+    <nav class="navbar navbar-expand-lg navbar-light">
+      <div class="menu_box">
+        <a class="navbar-brand"
+           href="#"><img src="~@images/猫.png" /></a>
+        <div class="navbar-toggler"
+             data-toggle="collapse"
+             data-target="#navbarNavAltMarkup"
+             aria-controls="navbarNavAltMarkup"
+             aria-expanded="false"
+             aria-label="Toggle navigation">
           <img src="~@images/head_portrait.jpg" />
-          <i></i>
         </div>
-        <el-dropdown-menu slot="dropdown">
-          <el-dropdown-item>登录</el-dropdown-item>
-          <el-dropdown-item>注销</el-dropdown-item>
-        </el-dropdown-menu>
-      </el-dropdown>
-    </div>
+        <div class="collapse navbar-collapse"
+             id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-item nav-link"
+               v-for="item in menuList"
+               :key="item.title">
+              <i class="iconfont"
+                 :class="item.icon"
+                 v-if="item.icon"></i>
+              <span> {{item.title}} </span>
+            </a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <div class="navbar_toggler "
+               id="dropdownMenuButton"
+               data-toggle="dropdown">
+            <img src="~@images/head_portrait.jpg" />
+          </div>
+          <div class="dropdown-menu"
+               aria-labelledby="dropdownMenuButton">
+
+            <a class="dropdown-item"
+               href="#"
+               @click="routeLink('/login')">登录</a>
+            <a class="dropdown-item"
+               @click="logOut"
+               href="#">注销</a>
+          </div>
+        </div>
+      </div>
+    </nav>
   </div>
 </template>
 
 <script>
+import api_login from '@api/login'
 export default {
-  data() {
+  data () {
     return {
       menuList: [
         {
@@ -44,38 +63,94 @@ export default {
       ],
     };
   },
-  mounted() {},
+  mounted () {
+
+  },
+  methods: {
+    routeLink (src) {
+      this.router.push(src);
+    },
+    // 注销
+    logOut () {
+      api_login.logOut().then(res => {
+        if (res.data.code == 200) {
+          this.$message({
+            message: '注销成功',
+            type: 'success'
+          });
+        }
+      })
+    }
+  }
 };
 </script>
-<style scoped>
-.menu {
-  display: flex;
+
+<style scoped lang="less" >
+.navbar {
+  height: 60px;
+  background: #fff;
+  padding: 0;
+  display: block;
 }
-.menu_box {
-  width: 750px;
+.navbar .menu_box {
   margin: 0 auto;
+  max-width: 750px;
+  position: relative;
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: space-between;
 }
-.menu_box img {
+.navbar-brand img {
   width: 60px;
 }
-.menu_right {
-  display: flex;
-  align-items: center;
-  margin-right: 80px;
+.navbar-brand {
+  padding: 0;
 }
-.head_portrait {
+.collapse {
+  width: auto;
+  justify-content: flex-end;
+}
+.nav-link {
+  cursor: pointer;
+}
+@media (min-width: 992px) {
+  .navbar-expand-lg .navbar-nav .nav-link {
+    border: none;
+  }
+
+  .navbar-expand-lg .navbar-toggler {
+    display: none;
+  }
+}
+@media (max-width: 992px) {
+  .dropdown {
+    display: none;
+  }
+  .navbar_toggler {
+    display: none;
+  }
+}
+@media (max-width: 800px) {
+  .navbar {
+    padding: 0 12px;
+  }
+}
+.navbar-toggler {
   width: 50px;
   border-radius: 50%;
   height: 50px;
   overflow: hidden;
   border: 2px solid #afafaf73;
   cursor: pointer;
+  padding: 0;
+}
+.navbar_toggler {
+  margin-left: 20px;
+  .navbar-toggler();
+}
+.dropdown-item {
+  color: #7a7a7a;
 }
 </style>
-<style>
-.menu .el-menu {
-  border: none;
-}
-</style>
+
