@@ -113,8 +113,8 @@ img {
   max-width: 100%;
 }
 div::-webkit-scrollbar {
-  width: 14px;
-  height: 14px;
+  width: 5px;
+  height: 5px;
 }
 div::-webkit-scrollbar-track {
   border-radius: 10px;
