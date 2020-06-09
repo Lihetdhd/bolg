@@ -11,8 +11,8 @@ module.exports = {
 
   /* webpack-dev-server 相关配置 */
   devServer: {
-    open: true, //自动打开浏览器
-    // host: "localhost", //开发环境地址
+    open: false, //自动打开浏览器
+    //host: "192.168.1.111", //开发环境地址
     // port: "8080", //开发环境端口
     https: false, //是否配置https请求
     hotOnly: true, //热跟新
@@ -25,6 +25,15 @@ module.exports = {
         pathRewrite: {
           // '/api'会替换成'/'
           "^/api": "/",
+        },
+      },
+      juhe: {
+        target: "http://v.juhe.cn",
+        secure: false, //是https请求需要配置
+        changeOrigin: true, // 开启代理，在本地创建一个虚拟服务端(是否跨域)
+        pathRewrite: {
+          // '/api'会替换成'/'
+          "^/juhe": "/",
         },
       },
     },
